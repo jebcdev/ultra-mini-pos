@@ -253,5 +253,19 @@
 
     "Audit Information": "Información de Auditoría",
     "Audit details of the record": "Detalles de auditoría del registro",
-    "External Links": "Enlaces Externos"
+    "External Links": "Enlaces Externos",
+    "Localization Management": "Gestión de Localización",
+    "Department": "Departamento",
+    "Departments": "Departamentos",
+    "City": "Ciudad",
+    "Cities": "Ciudades",
+
+    "Department Information": "Información del Departamento",
+    "Enter the department details.": "Ingrese los detalles del departamento.",
+    "Department details.": "Detalles del departamento.",
+
+    "City Information": "Información de la Ciudad",
+    "Enter the city details.": "Ingrese los detalles de la ciudad.",
+    "City details.": "Detalles de la ciudad."
+
 }
