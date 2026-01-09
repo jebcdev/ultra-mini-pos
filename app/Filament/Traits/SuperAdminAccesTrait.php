@@ -84,6 +84,8 @@ trait SuperAdminAccesTrait
      */
     protected static function hasAdminAccess(): bool
     {
+        /** @var \App\Models\User|null $user */
+
         $user = Auth::user();
         return $user && $user->isSuperAdmin();
     }
