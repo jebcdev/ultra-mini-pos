@@ -266,6 +266,18 @@
 
     "City Information": "Información de la Ciudad",
     "Enter the city details.": "Ingrese los detalles de la ciudad.",
-    "City details.": "Detalles de la ciudad."
+    "City details.": "Detalles de la ciudad.",
 
+    "Inventory & Customers": "Inventario & Clientes",
+    "Clients": "Clientes",
+    "Client": "Cliente",
+
+    "Full Name": "Nombre Completo",
+    "Phone Number": "Número de Teléfono",
+    "Email Address": "Dirección de Correo Electrónico",
+
+    "Client Information": "Información del Cliente",
+    "Enter the client details.": "Ingrese los detalles del cliente.",
+    "Client details.": "Detalles del cliente.",
+    "Address": "Dirección"
 }

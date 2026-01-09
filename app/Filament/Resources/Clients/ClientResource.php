@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Cities;
+namespace App\Filament\Resources\Clients;
 
-use App\Filament\Resources\Cities\Pages\CreateCity;
-use App\Filament\Resources\Cities\Pages\EditCity;
-use App\Filament\Resources\Cities\Pages\ListCities;
-use App\Filament\Resources\Cities\Pages\ViewCity;
-use App\Filament\Resources\Cities\Schemas\CityForm;
-use App\Filament\Resources\Cities\Schemas\CityInfolist;
-use App\Filament\Resources\Cities\Tables\CitiesTable;
-use App\Models\City;
+use App\Filament\Resources\Clients\Pages\CreateClient;
+use App\Filament\Resources\Clients\Pages\EditClient;
+use App\Filament\Resources\Clients\Pages\ListClients;
+use App\Filament\Resources\Clients\Pages\ViewClient;
+use App\Filament\Resources\Clients\Schemas\ClientForm;
+use App\Filament\Resources\Clients\Schemas\ClientInfolist;
+use App\Filament\Resources\Clients\Tables\ClientsTable;
+use App\Models\Client;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,22 +18,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CityResource extends Resource
+class ClientResource extends Resource
 {
     use \App\Filament\Traits\SuperAdminAdminAccesTrait;
 
-    protected static ?string $model = City::class;
+    protected static ?string $model = Client::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'full_name';
 
     /*  Inicio de Personalización */
 
     public static function getNavigationLabel(): string
     {
         // Define el nombre en singular para la navegación lateral
-        $text = __('Cities');
+        $text = __('Clients');
 
         return $text;
     }
@@ -41,21 +41,21 @@ class CityResource extends Resource
     // Opcional: Cambiar los nombres usados en los títulos y Breadcrumbs
     public static function getModelLabel(): string
     {
-        $text = __('City');
+        $text = __('Client');
 
         return $text; // Usado en 'Crear'
     }
 
     public static function getPluralModelLabel(): string
     {
-        $text = __('Cities');
+        $text = __('Clients');
 
         return $text; // Usado en el título principal 'Lista de ...'
     }
 
     public static function getNavigationGroup(): ?string
     {
-        $text = __('Localization Management');
+        $text = __('Inventory & Customers');
 
         return $text;
     }
@@ -63,13 +63,13 @@ class CityResource extends Resource
     public static function getNavigationGroupSort(): ?int
     {
 
-        return 98;
+        return 97;
     }
 
     public static function getNavigationSort(): ?int
     {
 
-        return 97;
+        return 96;
     }
 
     public static function getNavigationBadge(): ?string
@@ -79,7 +79,7 @@ class CityResource extends Resource
 
     public static function getNavigationBadgeTooltip(): ?string
     {
-        $text = __('Total Cities Registered');
+        $text = __('Total Clients Registered');
 
         return $text;
     }
@@ -88,17 +88,17 @@ class CityResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return CityForm::configure($schema);
+        return ClientForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema
     {
-        return CityInfolist::configure($schema);
+        return ClientInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return CitiesTable::configure($table);
+        return ClientsTable::configure($table);
     }
 
     public static function getRelations(): array
@@ -111,10 +111,10 @@ class CityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListCities::route('/'),
-            'create' => CreateCity::route('/create'),
-            'view' => ViewCity::route('/{record}'),
-            'edit' => EditCity::route('/{record}/edit'),
+            'index' => ListClients::route('/'),
+            'create' => CreateClient::route('/create'),
+            'view' => ViewClient::route('/{record}'),
+            'edit' => EditClient::route('/{record}/edit'),
         ];
     }
 
