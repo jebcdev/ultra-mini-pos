@@ -252,7 +252,7 @@ class ProductsUnifiedSeeder extends Seeder
                         'images' => ['/images/products/default.jpg'],
                         'purchase_price' => $purchasePrice,
                         'sale_price' => $salePrice,
-                        'stock' => rand(5, 50),
+                        'stock' => 0,
                         'stock_min' => 3,
                         'stock_max' => 100,
                         'unit' => 'unit',

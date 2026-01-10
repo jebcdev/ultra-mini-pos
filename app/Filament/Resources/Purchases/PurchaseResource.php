@@ -17,6 +17,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Actions\Action;
 
 class PurchaseResource extends Resource
 {
@@ -80,6 +81,17 @@ class PurchaseResource extends Resource
     public static function infolist(Schema $schema): Schema
     {
         return PurchaseInfolist::configure($schema);
+    }
+
+    public static function getInfolistActions(): array
+    {
+        return [
+            Action::make('exportPdf')
+                ->label(__('Export PDF'))
+                ->icon(Heroicon::DocumentArrowDown)
+                ->url(fn(Purchase $record): string => route('purchases.pdf', $record))
+                ->openUrlInNewTab(),
+        ];
     }
 
     public static function table(Table $table): Table

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             ClientSeeder::class,
             ProductsUnifiedSeeder::class, // Descomenta para usar el seeder unificado
+            PurchaseInvoiceSeeder::class,
         ]);
     }
 }
