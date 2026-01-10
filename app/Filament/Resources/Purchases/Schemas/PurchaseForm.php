@@ -43,7 +43,7 @@ class PurchaseForm
                             ->suffixIconColor(Color::Blue),
 
                         Hidden::make('user_id')
-                            ->default(fn () => Auth::id())
+                            ->default(fn() => Auth::id())
                             ->required()
                             ->dehydrated(),
                     ]),
@@ -82,7 +82,7 @@ class PurchaseForm
                                     ->options(function () {
                                         return Product::orderBy('name')
                                             ->get()
-                                            ->mapWithKeys(fn ($product) => [
+                                            ->mapWithKeys(fn($product) => [
                                                 $product->id => "{$product->name} (Stock: {$product->stock})",
                                             ])
                                             ->toArray();
@@ -190,12 +190,12 @@ class PurchaseForm
                             ->icon(Heroicon::Calculator)
                             ->color(Color::Blue)
                             ->badge(
-                                fn (Get $get): ?string => $get('totals_calculated')
+                                fn(Get $get): ?string => $get('totals_calculated')
                                     ? __('Calculated')
                                     : __('Pending')
                             )
                             ->badgeColor(
-                                fn (Get $get): string => $get('totals_calculated')
+                                fn(Get $get): string => $get('totals_calculated')
                                     ? 'success'
                                     : 'warning'
                             )
