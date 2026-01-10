@@ -211,8 +211,8 @@ class ElectronicProductsUnifiedSeeder extends Seeder
                 ['model' => 'AT2020', 'category' => 'microfonos'],
                 ['model' => 'AT2020USB-X', 'category' => 'microfonos'],
                 ['model' => 'ATH-S200BT', 'category' => 'audifonos'],
-                ['model' => 'ATH-S200BT', 'category' => 'audifonos'],
-                ['model' => 'AT-LP60X', 'category' => 'audifonos'], // Nota: AT-LP60X es un tocadiscos, pero ajustado
+                ['model' => 'ATH-S300BT', 'category' => 'audifonos'],
+                ['model' => 'AT-LP60X', 'category' => 'audifonos'],
             ],
         ];
 

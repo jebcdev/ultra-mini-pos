@@ -64,6 +64,7 @@ class InvoiceForm
                             )
                             ->required()
                             ->default('pending')
+                            ->preloadSearchable()
                             ->suffixIcon(Heroicon::Flag)
                             ->suffixIconColor(Color::Blue),
                     ]),

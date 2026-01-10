@@ -163,6 +163,7 @@ class ProductForm
                                         )
                             ->required()
                             ->default('unit')
+                            ->preloadSearchable()
                             ->suffixIcon(Heroicon::Wrench)
                             ->suffixIconColor(Color::Blue),
                     ]),

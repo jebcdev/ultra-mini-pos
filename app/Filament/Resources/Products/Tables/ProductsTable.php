@@ -41,11 +41,27 @@ class ProductsTable
                     ->searchableAndSortable()
                     ->toggleable(isToggledHiddenByDefault: false),
 
-                    TextColumn::make('stock')
-                        ->label(__('Stock'))
-                        ->numeric()
-                        ->sortable()
-                        ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('stock')
+                    ->label(__('Stock'))
+                    ->numeric()
+                    ->sortable()
+                    ->badge()
+                    ->toggleable(isToggledHiddenByDefault: false),
+
+                TextColumn::make('stock_min')
+                    ->label(__('Min Stock'))
+                    ->numeric()
+                    ->sortable()
+                    ->color(fn($record) => $record->stock <= $record->stock_min + 2 ? 'danger' : null)
+                    ->toggleable(isToggledHiddenByDefault: false),
+
+                TextColumn::make('stock_max')
+                    ->label(__('Max Stock'))
+                    ->numeric()
+                    ->sortable()
+                    ->badge()
+                    ->color(fn($record) => $record->stock >= $record->stock_max - 2 ? 'danger' : null)
+                    ->toggleable(isToggledHiddenByDefault: false),
 
                 TextColumn::make('sku')
                     ->label(__('SKU'))
@@ -81,17 +97,6 @@ class ProductsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make('stock_min')
-                    ->label(__('Min Stock'))
-                    ->numeric()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                TextColumn::make('stock_max')
-                    ->label(__('Max Stock'))
-                    ->numeric()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('width')
                     ->label(__('Width'))
