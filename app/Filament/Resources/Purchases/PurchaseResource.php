@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\Invoices;
+namespace App\Filament\Resources\Purchases;
 
-use App\Filament\Resources\Invoices\Pages\CreateInvoice;
-use App\Filament\Resources\Invoices\Pages\EditInvoice;
-use App\Filament\Resources\Invoices\Pages\ListInvoices;
-use App\Filament\Resources\Invoices\Pages\ViewInvoice;
-use App\Filament\Resources\Invoices\Schemas\InvoiceForm;
-use App\Filament\Resources\Invoices\Schemas\InvoiceInfolist;
-use App\Filament\Resources\Invoices\Tables\InvoicesTable;
-use App\Models\Invoice;
+use App\Filament\Resources\Purchases\Pages\CreatePurchase;
+use App\Filament\Resources\Purchases\Pages\EditPurchase;
+use App\Filament\Resources\Purchases\Pages\ListPurchases;
+use App\Filament\Resources\Purchases\Pages\ViewPurchase;
+use App\Filament\Resources\Purchases\Schemas\PurchaseForm;
+use App\Filament\Resources\Purchases\Schemas\PurchaseInfolist;
+use App\Filament\Resources\Purchases\Tables\PurchasesTable;
+use App\Models\Purchase;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,13 +18,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class InvoiceResource extends Resource
+class PurchaseResource extends Resource
 {
-    protected static ?string $model = Invoice::class;
+    protected static ?string $model = Purchase::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentText;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ShoppingBag;
 
-    protected static ?string $recordTitleAttribute = 'invoice_number';
+    protected static ?string $recordTitleAttribute = 'purchase_number';
 
     /*  Inicio de Personalización */
 
@@ -32,17 +32,17 @@ class InvoiceResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return __('Sales');
+        return __('Purchases');
     }
 
     public static function getModelLabel(): string
     {
-        return __('Sale');
+        return __('Purchase');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('Sales');
+        return __('Purchases');
     }
 
     public static function getNavigationGroup(): ?string
@@ -57,7 +57,7 @@ class InvoiceResource extends Resource
 
     public static function getNavigationSort(): ?int
     {
-        return 93;
+        return 94;
     }
 
     public static function getNavigationBadge(): ?string
@@ -67,24 +67,24 @@ class InvoiceResource extends Resource
 
     public static function getNavigationBadgeTooltip(): ?string
     {
-        return __('Total Invoices Registered');
+        return __('Total Purchases Registered');
     }
 
     /*  Fin de Personalización */
 
     public static function form(Schema $schema): Schema
     {
-        return InvoiceForm::configure($schema);
+        return PurchaseForm::configure($schema);
     }
 
     public static function infolist(Schema $schema): Schema
     {
-        return InvoiceInfolist::configure($schema);
+        return PurchaseInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return InvoicesTable::configure($table);
+        return PurchasesTable::configure($table);
     }
 
     public static function getRelations(): array
@@ -97,10 +97,10 @@ class InvoiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListInvoices::route('/'),
-            'create' => CreateInvoice::route('/create'),
-            'view' => ViewInvoice::route('/{record}'),
-            'edit' => EditInvoice::route('/{record}/edit'),
+            'index' => ListPurchases::route('/'),
+            'create' => CreatePurchase::route('/create'),
+            'view' => ViewPurchase::route('/{record}'),
+            'edit' => EditPurchase::route('/{record}/edit'),
         ];
     }
 
