@@ -5,7 +5,7 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum InvoiceStatus: string implements HasColor,HasLabel
+enum InvoiceStatus: string implements HasColor, HasLabel
 {
     case pending = 'pending';
     case paid = 'paid';
@@ -25,9 +25,9 @@ enum InvoiceStatus: string implements HasColor,HasLabel
     public function getColor(): string
     {
         return match ($this) {
-            self::pending => 'yellow',
-            self::paid => 'green',
-            self::overdue => 'red',
+            self::pending => 'warning',
+            self::paid => 'success',
+            self::overdue => 'danger',
             self::cancelled => 'gray',
         };
     }

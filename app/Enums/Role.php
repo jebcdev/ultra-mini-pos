@@ -13,20 +13,20 @@ enum Role: string implements HasColor, HasLabel
 
     public static function names(): array
     {
-        return array_map(fn ($case) => $case->name, self::cases());
+        return array_map(fn($case) => $case->name, self::cases());
     }
 
     public static function values(): array
     {
-        return array_map(fn ($case) => $case->value, self::cases());
+        return array_map(fn($case) => $case->value, self::cases());
     }
 
     public function getColor(): string
     {
         return match ($this) {
-            self::super_admin => 'red',
-            self::admin => 'blue',
-            self::user => 'green',
+            self::super_admin => 'danger',
+            self::admin => 'info',
+            self::user => 'success',
         };
     }
 

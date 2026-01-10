@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Invoice extends Model
 {
@@ -58,5 +59,17 @@ class Invoice extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Generar un número de factura único con formato FACT-{UUID}
+     */
+    public static function generateUniqueInvoiceNumber(): string
+    {
+        do {
+            $invoiceNumber = 'FACT-' . Str::uuid();
+        } while (self::where('invoice_number', $invoiceNumber)->exists());
+
+        return $invoiceNumber;
     }
 }

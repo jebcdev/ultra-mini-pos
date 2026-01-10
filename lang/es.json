@@ -388,5 +388,60 @@
     "Square Meter": "Metro Cuadrado",
     "Square Foot": "Pie Cuadrado",
     "Cubic Meter": "Metro Cúbico",
-    "Cubic Foot": "Pie Cúbico"
+    "Cubic Foot": "Pie Cúbico",
+
+    "Invoice": "Factura",
+    "Invoices": "Facturas",
+    "Invoice Information": "Información de la Factura",
+    "Enter the invoice details.": "Ingrese los detalles de la factura.",
+    "Invoice details.": "Detalles de la factura.",
+    "Invoice Number": "Número de Factura",
+    "Total Invoices Registered": "Total de Facturas Registradas",
+    "Sales & Billing": "Ventas & Facturación",
+
+    "Issue Date": "Fecha de Emisión",
+    "Due Date": "Fecha de Vencimiento",
+    "Dates": "Fechas",
+    "Invoice dates.": "Fechas de la factura.",
+
+    "Delivery": "Entrega",
+    "Delivery information.": "Información de entrega.",
+    "Delivery Address": "Dirección de Entrega",
+
+    "Amounts": "Montos",
+    "Invoice amounts.": "Montos de la factura.",
+    "Subtotal": "Subtotal",
+    "Tax Amount": "Monto de Impuesto",
+    "Discount Amount": "Monto de Descuento",
+    "Total Amount": "Monto Total",
+
+    "Notes": "Notas",
+    "Additional notes.": "Notas adicionales.",
+
+    "Status": "Estado",
+    "Pending": "Pendiente",
+    "Paid": "Pagado",
+    "Overdue": "Vencido",
+    "Cancelled": "Cancelado",
+
+    "Invoice Items": "Artículos de la Factura",
+    "Add items to the invoice.": "Agregue artículos a la factura.",
+    "Add Item": "Agregar Artículo",
+    "Quantity": "Cantidad",
+    "Unit Price": "Precio Unitario",
+    "Total Price": "Precio Total",
+    "Discount": "Descuento",
+
+    "Calculate Totals": "Calcular Totales",
+    "Totals calculated successfully": "Totales calculados exitosamente",
+    "All amounts have been updated": "Todos los montos han sido actualizados",
+    "You must calculate totals before saving the invoice": "Debes calcular los totales antes de guardar la factura",
+    "No items found": "No se encontraron artículos",
+    "Please add at least one item before calculating totals": "Por favor, agrega al menos un artículo antes de calcular los totales",
+    "Action Required": "Acción Requerida",
+    "Calculated": "Calculado",
+    "Invalid Calculation": "Cálculo Inválido",
+    "The subtotal cannot be negative": "El subtotal no puede ser negativo",
+    "Invalid Discount": "Descuento Inválido",
+    "The total discount cannot exceed the subtotal": "El descuento total no puede exceder el subtotal"
 }

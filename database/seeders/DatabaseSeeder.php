@@ -24,12 +24,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersSeeder::class,
-            CategorySeeder::class,
-            QualitySeeder::class,
-            ProductSeeder::class,
             DepartmentSeeder::class,
             ClientSeeder::class,
-            InvoiceSeeder::class,
+            ProductsUnifiedSeeder::class, // Descomenta para usar el seeder unificado
         ]);
     }
 }
