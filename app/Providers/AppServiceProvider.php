@@ -2,6 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\{
+        InvoiceItem,
+        PurchaseItem
+    };
+
+use App\Observers\{
+        InvoiceItemObserver,
+        PurchaseItemObserver
+    };
+    
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+        InvoiceItem::observe(InvoiceItemObserver::class);
+        PurchaseItem::observe(PurchaseItemObserver::class);
         // === CONFIGURACIÓN DE TIMEZONE ===
         // Asegura que el timezone de PHP coincida con config('app.timezone')
         // Esto hace que las funciones de fecha de PHP y Carbon usen el timezone configurado

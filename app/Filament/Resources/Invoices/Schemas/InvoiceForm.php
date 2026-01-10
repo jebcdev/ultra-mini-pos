@@ -135,7 +135,15 @@ class InvoiceForm
                             ->schema([
                                 Select::make('product_id')
                                     ->label(__('Product'))
-                                    ->relationship('product', 'name')
+                                    // ->relationship('product', 'name', fn($query) => $query->where('stock', '>', 0))
+                                    ->options(function () {
+                                        return Product::orderBy('name')
+                                            ->get()
+                                            ->mapWithKeys(fn($product) => [
+                                                $product->id => "{$product->name} (Stock: {$product->stock})"
+                                            ])
+                                            ->toArray();
+                                    })
                                     ->required()
                                     ->preloadSearchable()
                                     ->live()

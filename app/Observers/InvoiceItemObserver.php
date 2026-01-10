@@ -1,64 +1,30 @@
 <?php
 
-namespace App\Models;
+namespace App\Observers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
+use App\Models\InvoiceItem;
 
-class InvoiceItem extends Model
+class InvoiceItemObserver
 {
-    use SoftDeletes;
-
-    protected $fillable = [
-        'invoice_id',
-        'product_id',
-        'quantity',
-        'unit_price',
-        'discount',
-        // 'total_price', // Removido porque es una columna generada
-    ];
-
-    protected $casts = [
-        'quantity' => 'decimal:2',
-        'unit_price' => 'decimal:2',
-        'discount' => 'decimal:2',
-        'total_price' => 'decimal:2',
-    ];
-
     /**
-     * Variable estática para rastrear items procesados en esta request
+     * Handle the InvoiceItem "creating" event.
      */
-    public static $inventoryProcessedInCurrentRequest = [];
-
-    public function invoice(): BelongsTo
+    public function creating(InvoiceItem $invoiceItem): void
     {
-        return $this->belongsTo(Invoice::class);
-    }
-
-    public function product(): BelongsTo
-    {
-        return $this->belongsTo(Product::class);
+        // Asegurar que quantity y unit_price estén presentes
+        if (!$invoiceItem->quantity) {
+            $invoiceItem->quantity = 1;
+        }
+        if (!$invoiceItem->unit_price) {
+            $invoiceItem->unit_price = $invoiceItem->product->sale_price;
+        }
     }
 
     /**
-     * Bootstrap the model and its traits.
+     * Handle the InvoiceItem "created" event.
      */
-   /*  protected static function booted(): void
-    {
-        static::creating(function ($invoiceItem) {
-            // Asegurar que quantity y unit_price estén presentes
-            if (!$invoiceItem->quantity) {
-                $invoiceItem->quantity = 1;
-            }
-            if (!$invoiceItem->unit_price) {
-                $invoiceItem->unit_price = $invoiceItem->product->sale_price;
-            }
-        });
-
-        static::created(function ($invoiceItem) {
-            // Reducir el stock del producto
+    public function created(InvoiceItem $invoiceItem): void {
+        // Reducir el stock del producto
             $product = $invoiceItem->product;
             $product->stock -= $invoiceItem->quantity;
             $product->saveQuietly();
@@ -66,11 +32,15 @@ class InvoiceItem extends Model
             \Illuminate\Support\Facades\Log::info("📉 Stock reducido al CREAR InvoiceItem - Producto: {$product->name}, Cantidad: {$invoiceItem->quantity}, Stock actual: {$product->stock}");
 
             // Recalcular totales de la factura
-            self::recalculateInvoiceTotals($invoiceItem);
-        });
+            $invoiceItem::recalculateInvoiceTotals($invoiceItem);
+    }
 
-        static::updating(function ($invoiceItem) {
-            // Verificar si realmente hay cambios
+    /**
+     * Handle the InvoiceItem "updating" event.
+     */
+    public function updating(InvoiceItem $invoiceItem): void
+    {
+         // Verificar si realmente hay cambios
             $key = "update_{$invoiceItem->id}";
 
             // Si ya procesamos este item en esta request, ignorar
@@ -91,12 +61,16 @@ class InvoiceItem extends Model
                 \Illuminate\Support\Facades\Log::info("🔄 ACTUALIZANDO InvoiceItem ID: {$invoiceItem->id}, Cantidad original: {$invoiceItem->original_quantity}, Nueva cantidad: {$invoiceItem->quantity}");
 
                 // Marcar que estamos procesando este item
-                self::$inventoryProcessedInCurrentRequest[$key] = true;
+                $invoiceItem::$inventoryProcessedInCurrentRequest[$key] = true;
             }
-        });
+    }
 
-        static::updated(function ($invoiceItem) {
-            // Ajustar inventario SOLO si cambió la cantidad
+    /**
+     * Handle the InvoiceItem "updated" event.
+     */
+    public function updated(InvoiceItem $invoiceItem): void
+    {
+         // Ajustar inventario SOLO si cambió la cantidad
             if ($invoiceItem->wasChanged('quantity')) {
                 $product = $invoiceItem->product;
                 $oldQuantity = $invoiceItem->original_quantity ?? $invoiceItem->getOriginal('quantity');
@@ -114,19 +88,27 @@ class InvoiceItem extends Model
 
             // Recalcular totales SOLO si hubo cambios relevantes
             if ($invoiceItem->wasChanged(['quantity', 'unit_price', 'discount', 'product_id'])) {
-                self::recalculateInvoiceTotals($invoiceItem);
+                $invoiceItem::recalculateInvoiceTotals($invoiceItem);
             }
-        });
+    }
 
-        static::deleting(function ($invoiceItem) {
-            // Guardar cantidad antes de eliminar
+    /**
+     * Handle the InvoiceItem "deleting" event.
+     */
+    public function deleting(InvoiceItem $invoiceItem): void
+    {
+        // Guardar cantidad antes de eliminar
             $invoiceItem->deleted_quantity = $invoiceItem->quantity;
 
             \Illuminate\Support\Facades\Log::info("🗑️ ELIMINANDO InvoiceItem ID: {$invoiceItem->id}, Cantidad a devolver: {$invoiceItem->deleted_quantity}");
-        });
+    }
 
-        static::deleted(function ($invoiceItem) {
-            // Devolver el stock del producto
+    /**
+     * Handle the InvoiceItem "deleted" event.
+     */
+    public function deleted(InvoiceItem $invoiceItem): void
+    {
+        // Devolver el stock del producto
             $product = $invoiceItem->product;
             $product->stock += $invoiceItem->deleted_quantity;
             $product->saveQuietly();
@@ -134,28 +116,22 @@ class InvoiceItem extends Model
             \Illuminate\Support\Facades\Log::info("📈 Stock devuelto al ELIMINAR - Producto: {$product->name}, Cantidad devuelta: {$invoiceItem->deleted_quantity}, Stock actual: {$product->stock}");
 
             // Recalcular totales de la factura
-            self::recalculateInvoiceTotals($invoiceItem);
-        });
-    } */
+            $invoiceItem::recalculateInvoiceTotals($invoiceItem);
+    }
 
     /**
-     * Recalcular los totales de la factura
+     * Handle the InvoiceItem "restored" event.
      */
-    protected static function recalculateInvoiceTotals($invoiceItem): void
+    public function restored(InvoiceItem $invoiceItem): void
     {
-        $invoice = $invoiceItem->invoice;
+        //
+    }
 
-        // Calcular subtotal (suma de todos los items sin descuentos globales)
-        $invoice->subtotal = $invoice->items()->sum(DB::raw('(quantity * unit_price) - discount'));
-
-        // Por ahora, asumir que tax_amount se calcula como porcentaje (ajustar según lógica de negocio)
-        // $invoice->tax_amount = $invoice->subtotal * 0.16; // Ejemplo: 16% IVA
-
-        // Total amount = subtotal + taxes - descuentos globales (si aplican)
-        $invoice->total_amount = $invoice->subtotal + $invoice->tax_amount - $invoice->discount_amount;
-
-        $invoice->saveQuietly();
-
-        \Illuminate\Support\Facades\Log::info("💰 Totales recalculados - Factura ID: {$invoice->id}, Subtotal: {$invoice->subtotal}, Total: {$invoice->total_amount}");
+    /**
+     * Handle the InvoiceItem "force deleted" event.
+     */
+    public function forceDeleted(InvoiceItem $invoiceItem): void
+    {
+        //
     }
 }
