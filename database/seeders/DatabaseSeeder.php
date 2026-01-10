@@ -24,10 +24,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersSeeder::class,
-            DepartmentSeeder::class,
-            ClientSeeder::class,
-            ProductsUnifiedSeeder::class, // Descomenta para usar el seeder unificado
-            PurchaseInvoiceSeeder::class,
+            // DepartmentSeeder::class,
+            // ClientSeeder::class,
+            // ProductsUnifiedSeeder::class,
+            ElectronicProductsUnifiedSeeder::class,
+            // PurchaseInvoiceSeeder::class,
         ]);
     }
 }
