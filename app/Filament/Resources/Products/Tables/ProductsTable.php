@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Tables;
 
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -12,39 +13,62 @@ class ProductsTable
     {
         $table
             ->columns([
+
+                ImageColumn::make('images')
+                    ->label(__('Images'))
+                    ->disk('public')
+                    ->width(50)
+                    ->stacked()
+                    ->circular()
+                    ->extraImgAttributes(['loading' => 'lazy'])
+                    ->wrap()
+                    ->placeholder('-')
+                    ->limit(2)
+                    ->toggleable(isToggledHiddenByDefault: false),
+
                 TextColumn::make('category.name')
                     ->label(__('Category'))
-                    ->searchableAndSortable(),
+                    ->searchableAndSortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('quality.name')
                     ->label(__('Quality'))
-                    ->searchableAndSortable(),
+                    ->searchableAndSortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('name')
                     ->label(__('Name'))
-                    ->searchableAndSortable(),
+                    ->searchableAndSortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
+
+                    TextColumn::make('stock')
+                        ->label(__('Stock'))
+                        ->numeric()
+                        ->sortable()
+                        ->toggleable(isToggledHiddenByDefault: false),
 
                 TextColumn::make('sku')
                     ->label(__('SKU'))
-                    ->searchableAndSortable(),
+                    ->searchableAndSortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('sale_price')
                     ->label(__('Sale Price'))
-                    ->money()
-                    ->sortable(),
+                    ->moneyCop()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: false),
 
-                TextColumn::make('stock')
-                    ->label(__('Stock'))
-                    ->numeric()
-                    ->sortable(),
 
                 TextColumn::make('unit')
                     ->label(__('Unit'))
-                    ->searchableAndSortable(),
+                    ->searchableAndSortable()
+                    ->formatStateUsing(fn($state) => __($state))
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('is_active')
                     ->label(__('Active'))
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: false),
 
                 TextColumn::make('slug')
                     ->label(__('Slug'))
@@ -53,7 +77,7 @@ class ProductsTable
 
                 TextColumn::make('purchase_price')
                     ->label(__('Purchase Price'))
-                    ->money()
+                    ->moneyCop()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
@@ -86,6 +110,7 @@ class ProductsTable
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
 
                 TextColumn::make('created_at')
                     ->label(__('Created At'))

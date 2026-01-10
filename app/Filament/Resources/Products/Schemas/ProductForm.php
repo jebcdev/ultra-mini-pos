@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Enums\UnitOfMeasure;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
+
 
 class ProductForm
 {
@@ -27,6 +32,7 @@ class ProductForm
                             ->label(__('Category'))
                             ->relationship('category', 'name')
                             ->required()
+                            ->preloadSearchable()
                             ->suffixIcon(Heroicon::Tag)
                             ->suffixIconColor(Color::Blue),
 
@@ -34,17 +40,22 @@ class ProductForm
                             ->label(__('Quality'))
                             ->relationship('quality', 'name')
                             ->suffixIcon(Heroicon::CheckCircle)
+                            ->preloadSearchable()
+                            ->required()
                             ->suffixIconColor(Color::Blue),
 
                         TextInput::make('name')
                             ->label(__('Name'))
                             ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->suffixIcon(Heroicon::ShoppingCart)
                             ->suffixIconColor(Color::Blue),
 
-                        TextInput::make('slug')
+                            TextInput::make('slug')
                             ->label(__('Slug'))
                             ->required()
+                            ->readOnly()->disabled()->dehydrated(true)
                             ->suffixIcon(Heroicon::Link)
                             ->suffixIconColor(Color::Blue),
 
@@ -69,10 +80,24 @@ class ProductForm
                             ->label(__('Description'))
                             ->columnSpanFull(),
 
-                        Textarea::make('images')
-                            ->label(__('Images'))
-                            ->default('["http:\/\/ultra-mini-pos.test\/assets\/img\/products.png"]')
-                            ->columnSpanFull(),
+                        FileUpload::make('images')
+                            ->columnSpanFull()
+                            ->disk('public')
+                            ->directory('products-images')
+                            ->hint(__('Upload max 5 images for the product.'))
+                            ->hintIcon(Heroicon::OutlinedInformationCircle)
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/gif',
+                                'image/svg+xml',
+                                'image/webp',
+                            ])
+                            ->multiple()
+                            ->reorderable()
+                            ->maxFiles(5)
+                            ->image()
+                            ->label(__('Images')),
                     ]),
 
                 Section::make(__('Pricing'))
@@ -130,8 +155,12 @@ class ProductForm
                             ->suffixIcon(Heroicon::ArrowUp)
                             ->suffixIconColor(Color::Green),
 
-                        TextInput::make('unit')
+                        Select::make('unit')
                             ->label(__('Unit of Measure'))
+                            ->options(
+                                            collect(UnitOfMeasure::values())
+                                                ->mapWithKeys(fn($value) => [$value => __($value)])
+                                        )
                             ->required()
                             ->default('unit')
                             ->suffixIcon(Heroicon::Wrench)

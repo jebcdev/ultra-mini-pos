@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Products\Schemas;
 
 use App\Models\Product;
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -69,12 +70,16 @@ class ProductInfolist
                             ->placeholder('-')
                             ->columnSpanFull(),
 
-                        TextEntry::make('images')
+                         ImageEntry::make('images')
                             ->label(__('Images'))
-                            ->icon(Heroicon::Camera)
-                            ->color(Color::Blue)
+                            ->imageHeight(80)
+                            ->disk('public')
+                            ->limit(5)
+                            ->circular()
+                            ->stacked()
+                            ->wrap()
                             ->placeholder('-')
-                            ->columnSpanFull(),
+                            ->extraImgAttributes(['loading' => 'lazy']),
                     ]),
 
                 Section::make(__('Pricing'))
