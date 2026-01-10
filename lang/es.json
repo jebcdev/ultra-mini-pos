@@ -443,5 +443,19 @@
     "Invalid Calculation": "Cálculo Inválido",
     "The subtotal cannot be negative": "El subtotal no puede ser negativo",
     "Invalid Discount": "Descuento Inválido",
-    "The total discount cannot exceed the subtotal": "El descuento total no puede exceder el subtotal"
+    "The total discount cannot exceed the subtotal": "El descuento total no puede exceder el subtotal",
+
+    "Insufficient stock for product: ": "Stock insuficiente para el producto: ",
+    "The invoice must have at least one item.": "La factura debe tener al menos un artículo.",
+    "Product not found": "Producto no encontrado",
+    "The invoice could not be created due to stock issues.": "La factura no pudo ser creada debido a problemas de stock.",
+    "Error": "Error",
+    "Stock error": "Error de stock",
+    "Low stock": "Stock bajo",
+    "The product": "El producto",
+    "has low stock": "tiene stock bajo",
+    "units": "unidades",
+    "Available Stock": "Stock disponible",
+    "Requested": "Solicitado",
+    "Product ID": "ID del Producto"
 }

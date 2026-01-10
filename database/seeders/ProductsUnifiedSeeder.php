@@ -306,40 +306,40 @@ class ProductsUnifiedSeeder extends Seeder
     }
 
     /**
-     * Obtener rango de precios base por marca
+     * Obtener rango de precios base por marca (en pesos colombianos)
      */
     private function getBasePriceRange(string $brandKey): array
     {
         $baseRanges = [
-            'chanel' => ['min' => 80, 'max' => 300],
-            'louis-vuitton' => ['min' => 90, 'max' => 280],
-            'gucci' => ['min' => 70, 'max' => 250],
-            'prada' => ['min' => 100, 'max' => 320],
-            'dior' => ['min' => 110, 'max' => 330],
-            'fendi' => ['min' => 85, 'max' => 290],
-            'saint-laurent' => ['min' => 95, 'max' => 310],
-            'celine' => ['min' => 105, 'max' => 340],
-            'balenciaga' => ['min' => 80, 'max' => 270],
-            'bottega-veneta' => ['min' => 90, 'max' => 300],
+            'chanel' => ['min' => 320000, 'max' => 1200000],
+            'louis-vuitton' => ['min' => 360000, 'max' => 1120000],
+            'gucci' => ['min' => 280000, 'max' => 1000000],
+            'prada' => ['min' => 400000, 'max' => 1280000],
+            'dior' => ['min' => 440000, 'max' => 1320000],
+            'fendi' => ['min' => 340000, 'max' => 1160000],
+            'saint-laurent' => ['min' => 380000, 'max' => 1240000],
+            'celine' => ['min' => 420000, 'max' => 1360000],
+            'balenciaga' => ['min' => 320000, 'max' => 1080000],
+            'bottega-veneta' => ['min' => 360000, 'max' => 1200000],
         ];
 
-        return $baseRanges[$brandKey] ?? ['min' => 80, 'max' => 300];
+        return $baseRanges[$brandKey] ?? ['min' => 320000, 'max' => 1200000];
     }
 
     /**
-     * Obtener rango de precios según la calidad
+     * Obtener rango de precios según la calidad (en pesos colombianos)
      */
     private function getPriceRangeByQuality(string $quality): array
     {
         $ranges = [
-            'aa' => ['purchase_min' => 50, 'purchase_max' => 150],
-            'aaa' => ['purchase_min' => 100, 'purchase_max' => 250],
-            '1-1' => ['purchase_min' => 150, 'purchase_max' => 350],
-            '1-1-superior' => ['purchase_min' => 200, 'purchase_max' => 450],
-            'tipo-clone' => ['purchase_min' => 300, 'purchase_max' => 600],
+            'aa' => ['purchase_min' => 200000, 'purchase_max' => 600000],
+            'aaa' => ['purchase_min' => 400000, 'purchase_max' => 1000000],
+            '1-1' => ['purchase_min' => 600000, 'purchase_max' => 1400000],
+            '1-1-superior' => ['purchase_min' => 800000, 'purchase_max' => 1800000],
+            'tipo-clone' => ['purchase_min' => 1200000, 'purchase_max' => 2400000],
         ];
 
-        return $ranges[$quality] ?? ['purchase_min' => 80, 'purchase_max' => 200];
+        return $ranges[$quality] ?? ['purchase_min' => 320000, 'purchase_max' => 800000];
     }
 
     /**

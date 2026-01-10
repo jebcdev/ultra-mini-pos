@@ -62,13 +62,14 @@ class Invoice extends Model
     }
 
     /**
-     * Generar un número de factura único con formato FACT-{UUID}
+     * Generar un número de factura secuencial con formato FACT-###
+     * Donde ### es el total de facturas + 1 con ceros a la izquierda
      */
     public static function generateUniqueInvoiceNumber(): string
     {
-        do {
-            $invoiceNumber = 'FACT-' . Str::uuid();
-        } while (self::where('invoice_number', $invoiceNumber)->exists());
+        $totalInvoices = self::count();
+        $nextNumber = $totalInvoices + 1;
+        $invoiceNumber = 'FACT-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
         return $invoiceNumber;
     }

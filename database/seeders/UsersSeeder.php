@@ -13,29 +13,36 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        // minipos.test
+        $users = [
+            [
+                'role' => 'super_admin',
+                'name' => 'Super Admin',
+                'email' => 'superadmin@minipos.test',
+                'password' => Hash::make('123456'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role' => 'admin',
+                'name' => 'Admin',
+                'email' => 'admin@minipos.test',
+                'password' => Hash::make('123456'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role' => 'user',
+                'name' => 'User',
+                'email' => 'user@minipos.test',
+                'password' => Hash::make('123456'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
 
-        User::create([
-            'role' => 'super_admin',
-            'name' => 'Super Admin',
-            'email' => 'superadmin@minipos.test',
-            'password' => Hash::make('123456'),
-            'email_verified_at' => now(),
-        ]);
-
-        User::create([
-            'role' => 'admin',
-            'name' => 'Admin',
-            'email' => 'admin@minipos.test',
-            'password' => Hash::make('123456'),
-            'email_verified_at' => now(),
-        ]);
-        User::create([
-            'role' => 'user',
-            'name' => 'User',
-            'email' => 'user@minipos.test',
-            'password' => Hash::make('123456'),
-            'email_verified_at' => now(),
-        ]);
+        User::insert($users);
     }
 }

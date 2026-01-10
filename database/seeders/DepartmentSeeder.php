@@ -48,17 +48,24 @@ class DepartmentSeeder extends Seeder
             'Vichada' => ['Puerto Carreño', 'La Primavera', 'Cumaribo'],
         ];
 
-        foreach ($departments as $departmentName => $cities) {
-            $department = Department::create([
-                'name' => $departmentName
-            ]);
+        $cities = [];
 
-            foreach ($cities as $cityName) {
-                City::create([
+        foreach ($departments as $departmentName => $cityNames) {
+            // Insertar departamento
+            $department = Department::create(['name' => $departmentName]);
+
+            // Preparar ciudades para bulk insert
+            foreach ($cityNames as $cityName) {
+                $cities[] = [
                     'department_id' => $department->id,
-                    'name' => $cityName
-                ]);
+                    'name' => $cityName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
             }
         }
+
+        // Insertar todas las ciudades de una sola vez
+        City::insert($cities);
     }
 }

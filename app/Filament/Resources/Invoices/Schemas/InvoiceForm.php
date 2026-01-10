@@ -108,11 +108,13 @@ class InvoiceForm
                             ->label(__('City'))
                             ->relationship('city', 'name')
                             ->preloadSearchable()
+                            ->required()
                             ->suffixIcon(Heroicon::MapPin)
                             ->suffixIconColor(Color::Blue),
 
                         Textarea::make('delivery_address')
                             ->label(__('Delivery Address'))
+                            ->required()
                             ->columnSpanFull(),
                     ]),
 

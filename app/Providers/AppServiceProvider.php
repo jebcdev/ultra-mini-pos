@@ -19,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Register policies
 
         // === CONFIGURACIÓN DE TIMEZONE ===
         // Asegura que el timezone de PHP coincida con config('app.timezone')

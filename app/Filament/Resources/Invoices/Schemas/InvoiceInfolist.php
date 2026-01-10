@@ -101,19 +101,19 @@ class InvoiceInfolist
                             ->label(__('Subtotal'))
                             ->icon(Heroicon::CurrencyDollar)
                             ->color(Color::Green)
-                            ->money(),
+                            ->moneyCop(),
 
                         TextEntry::make('discount_amount')
                             ->label(__('Discount Amount'))
                             ->icon(Heroicon::Tag)
                             ->color(Color::Red)
-                            ->money(),
+                            ->moneyCop(),
 
                         TextEntry::make('total_amount')
                             ->label(__('Total Amount'))
                             ->icon(Heroicon::Banknotes)
                             ->color(Color::Green)
-                            ->money(),
+                            ->moneyCop(),
                     ]),
 
                 Section::make(__('Invoice Items'))
@@ -134,17 +134,17 @@ class InvoiceInfolist
 
                                 \Filament\Infolists\Components\TextEntry::make('unit_price')
                                     ->label(__('Unit Price'))
-                                    ->money()
+                                    ->moneyCop()
                                     ->color(Color::Green),
 
                                 \Filament\Infolists\Components\TextEntry::make('discount')
                                     ->label(__('Discount'))
-                                    ->money()
+                                    ->moneyCop()
                                     ->color(Color::Red),
 
                                 \Filament\Infolists\Components\TextEntry::make('total_price')
                                     ->label(__('Total Price'))
-                                    ->money()
+                                    ->moneyCop()
                                     ->color(Color::Green),
                             ])
                             ->columns(5),
