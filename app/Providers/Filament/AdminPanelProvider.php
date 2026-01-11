@@ -29,8 +29,37 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
+            /*  */
+            ->font('Poppins')
+            ->favicon(asset('assets/img/logo.png'))
+            ->darkMode(true)
+            ->sidebarCollapsibleOnDesktop()
+            ->brandLogo(asset('assets/img/logo.png'))
+            ->brandLogoHeight("5.5rem")
+
+            ->sidebarFullyCollapsibleOnDesktop(true) //oculta hasta los iconos del menu
+            // ->topNavigation()
+            // links de navegación en el menú
+            ->navigationItems([
+                \Filament\Navigation\NavigationItem::make('WhatsApp')
+                    ->url('https://wa.me/573052850514', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-chat-bubble-bottom-center-text')
+                    ->group(__('External Links'))
+                    ->visible(function (): bool {
+                        return \Illuminate\Support\Facades\Auth::check();
+                    })
+                    ->sort(100),
+            ])
+
+            ->userMenuItems([ //para el menu de usuario en la parte superior derecha
+                \Filament\Actions\Action::make('profile')
+                    ->label(__('Profile'))
+                    ->url('/profile')
+                    ->icon('heroicon-o-cog-6-tooth')
+            ])
+            /*  */
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

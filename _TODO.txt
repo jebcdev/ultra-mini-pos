@@ -1,0 +1,1 @@
+tabla productos, poner colores a stock y stock_min segun si se esta cerca del stock_min
