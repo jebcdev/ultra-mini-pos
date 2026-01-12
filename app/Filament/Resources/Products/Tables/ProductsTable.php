@@ -136,6 +136,7 @@ class ProductsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ]);
 
+
         return \App\Filament\Helpers\TableConfigHelper::applyStandardConfig($table, \App\Filament\Resources\Products\ProductResource::class);
     }
 }

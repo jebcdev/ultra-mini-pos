@@ -53,13 +53,13 @@ class TableConfigHelper
 
         if ($viewable) {
             $recordActions[] = ViewAction::make()
-                ->url(fn ($record) => $resourceClass::getUrl('view', ['record' => $record]))
+                ->url(fn($record) => $resourceClass::getUrl('view', ['record' => $record]))
                 ->label(__('View'));
         }
 
         if ($editable) {
             $recordActions[] = EditAction::make()
-                ->url(fn ($record) => $resourceClass::getUrl('edit', ['record' => $record]))
+                ->url(fn($record) => $resourceClass::getUrl('edit', ['record' => $record]))
                 ->label(__('Edit'));
         }
 
@@ -87,6 +87,7 @@ class TableConfigHelper
         }
 
         return $table
+            ->paginated([25, 50, 100, 'all'])
             ->filters($filters)
             ->recordActions(
                 [
